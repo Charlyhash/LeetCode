@@ -61,7 +61,7 @@ public:
 			{
 				ret.push_back(vector<int>{nums[start - 1], nums[low], nums[high]});
 
-				//避免重复
+				//避免重复，这里有可能还有其他的组合等于target的
 				int k = low + 1;
 				while(k < high && nums[k] == nums[low])
 					++k;

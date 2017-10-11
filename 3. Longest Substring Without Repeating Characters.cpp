@@ -37,13 +37,14 @@ public:
 		//traverse the string s
 		for (; right < len; ++right)
 		{
-			// when the char s[right] occurs, the left pos should chang
+			//如果right位置的字符出现过，并且出现的位置大于left，说明是
+			//在left之后第二次出现，有重复了，因此需要更新left
 			if (v[s[right]] > left)
 				left = v[s[right]];
 			//add char/position to the vector
-			v[s[right]] = right;
+			v[s[right]] = right; //更新字符串s[right]出现的位置
 			//update the max result
-			res = max(res, right - left);
+			res = max(res, right - left); //更新max
 		}
 
 		return res;

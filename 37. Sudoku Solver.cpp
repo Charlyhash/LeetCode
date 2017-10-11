@@ -1,4 +1,4 @@
-/*
+﻿/*
 leetcode 37. Sudoku Solver
 Write a program to solve a Sudoku puzzle by filling the empty cells.
 
@@ -6,12 +6,12 @@ Empty cells are indicated by the character '.'.
 
 You may assume that there will be only one unique solution.
 
-��Ŀ���⣺����������
-����˼·�����ݣ�����ÿһ��û������λ�ã���������0...9�����ǲ�������������������
-��麯����check�������board�Ƿ������������������ȼ��ÿһ�к�ÿһ�д����Լ��⣬��û�к�����λ�õ�ֵ��ȵ�ֵ
-Ȼ�����Լ�����3*3�ķ�������û�к��Լ���ȵ�ֵ�������û�У�˵����μ������ȷ�ģ�����Ŀǰλ�ã��������ǳ����ġ�
-�������������ÿһ��λ�ã������Ϊ'.'��˵������Ҫ���������񣬼�������һ�������Ϊ'.',����������0...9,��ʱ��Ҫ
-�ô���check��������solve��һ��λ��Ҳ������
+题目大意：解数独问题
+解题思路：回溯，对于每一个没有填充的位置，依次填入0...9，看是不是满足数独的条件。
+检查函数：check函数检查board是否满足数独的条件。先检查每一行和每一列处理自己外，有没有和其他位置的值相等的值
+然后检查自己所在3*3的方格内有没有和自己相等的值。如果都没有，说明这次检查是正确的，即到目前位置，该数独是成立的。
+解决函数：对于每一个位置，如果不为'.'，说明不需要填充这个方格，继续填下一个。如果为'.',则依次填入0...9,此时需要
+该处的check成立并且solve下一个位置也成立。
 
 */
 
@@ -52,7 +52,7 @@ public:
 
 	bool check(vector<vector<char>>& board, int x, int y)
 	{
-		//�ж��к����ǲ�������ȵ�ֵ
+		//判断行和列是不是有相等的值
 		for (int i = 0; i < 9; ++i)
 		{
 			if (i != y && board[x][i] == board[x][y])
@@ -61,7 +61,7 @@ public:
 				return false;
 		}
 
-		//�ж�3*3���������ǲ�������ȵ�ֵ
+		//判断3*3格子里面是不是有相等的值
 		for (int i = 0; i < 3; ++i)
 		{
 			for (int j = 0; j < 3; ++j)
@@ -75,7 +75,6 @@ public:
 		return true;
 	}
 };
-
 
 void test()
 {
@@ -91,7 +90,6 @@ void test()
 		{'.','.','.','.','.','.','.','.','6'},
 		{'.','.','.','2','7','5','9','.','.'}
 	};
-
 	sol.solveSudoku(board);
 
 	for (auto v : board)
@@ -101,6 +99,8 @@ void test()
 		cout << endl;
 	}
 }
+
+
 
 int main()
 {

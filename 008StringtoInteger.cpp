@@ -1,3 +1,6 @@
+/*
+题目大意：字符串数字转为正数
+*/
 #include <iostream>
 #include <string>
 #include <math.h>

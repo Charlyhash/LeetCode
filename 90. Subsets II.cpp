@@ -23,7 +23,7 @@ If nums = [1,2,2], a solution is:
 
 using namespace std;
 
-class Solution1 {
+class Solution {
 public:
 	vector<vector<int>> subsetsWithDup(vector<int>& nums) {
 		vector<vector<int>> ret;
@@ -50,7 +50,7 @@ public:
 
 		//not use nums[count]
 		DFS(ret, used, nums, tmp, count + 1);
-		//避免重复：当时第一个元素，或者该元素不等于前一个元素或者该元素等于前一个元素但且前一个元素已经使用过
+		//避免重复：当是第一个元素，或者该元素不等于前一个元素或者该元素等于前一个元素但且前一个元素已经使用过
 		if (!count || nums[count] != nums[count - 1] || (nums[count] == nums[count - 1] && used[count - 1]))
 		{
 			used[count] = true;
@@ -60,16 +60,6 @@ public:
 			used[count] = false;
 		}
 	}
-};
-
-class Solution {
-	vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-
-	}
-
-private:
-	DFS(vector<vector<int>>ret, vector<int> nums, vector<int>tmp, int pos)
-	{}
 };
 
 void TEST()

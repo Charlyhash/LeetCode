@@ -47,6 +47,36 @@ public:
 		
 		return dp[n-1];
 	}
+
+	//排列组合
+	typedef long long int64_t;
+	//求阶乘
+	int64_t factor(int64_t m, int64_t start = 1)
+	{
+		int64_t ret = 1;
+		while (start <= m)
+			ret *= start;
+
+		return ret;
+	}
+	//求组合
+	int64_t combanations(int n, int m)
+	{
+		if (m == 0)
+			return 1;
+		if (m == 1)
+			return n;
+		int64_t k1 = factor(n, n - m + 1);
+		int64_t k2 = factor(m);
+
+		return (k1 / k2);
+	}
+
+	int uniquePaths(int m, int n)
+	{
+		return combanations(m + n - 2, min(m - 1, n - 1));
+	}
+
 };
 
 void test()

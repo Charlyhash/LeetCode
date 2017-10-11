@@ -1,70 +1,48 @@
 /*
-Given a linked list, remove the nth node from the end of list and return its head.
-
-For example,
-
-Given linked list: 1->2->3->4->5, and n = 2.
-
-After removing the second node from the end, the linked list becomes 1->2->3->5.
-Note:
-Given n will always be valid.
-Try to do this in one pass.
-
+leetcode 19.Remove Nth Node From End of List
+题目大意：
+删除链表中倒数第n个节点。
 解题思路：
-找到要删除的节点就可以了。
-用两个指针p1, p2，p1先走n步,然后两个同时走，当p1到链表尾部时，p2刚好到要删除的元素的位置。
+找到要删除的节点：用两个指针p1, p2，p1先走n步,然后两个同时走，
+如果此时p1为null, 则删除的时头结点，当p1到链表尾部时，p2刚好
+到要删除的节点的前一个位置
 */
-
 
 #include "LeetCodeList.h"
 #include <iostream>
 #include <vector>
+#include "LeetCodeList.h"
 
 using namespace std;
 
-/**
-* Definition for singly-linked list.
-* struct ListNode {
-*     int val;
-*     ListNode *next;
-*     ListNode(int x) : val(x), next(NULL) {}
-* };
-*/
 class Solution {
 public:
 	ListNode* removeNthFromEnd(ListNode* head, int n) 
 	{
-		//if (n == 1)
-		//{
-		//	ListNode* tmp = head;
-		//	head = head->next;
-		//	delete tmp;
-		//	return head;
-		//}
 
 		ListNode* p1 = head;
 		ListNode* p2 = head;
-		while (--n && p2->next != nullptr)
-			p2 = p2->next;
+		ListNode* t = NULL;
+		for (int i = 0; i < n-1; ++i)
+			p1 = p1->next;
 
-		if (p2->next == nullptr)
+		while (p1->next != nullptr)
 		{
-			ListNode* tmp = head;
-			head = head->next;
-			delete tmp;
-			return head;
-		}
-
-		while (p2->next->next != nullptr)
-		{
+			t = p2;
 			p1 = p1->next;
 			p2 = p2->next;
 		}
 
-		ListNode* tmp = p1->next;
-		p1->next = p1->next->next;
-		
-		delete tmp;
+		if (t == NULL)
+		{
+			head = p2->next;
+			delete p2;
+		}
+		else
+		{
+			t->next = p2->next;
+			delete p2;
+		}
 
 		return head;
 	}

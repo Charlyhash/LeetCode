@@ -1,10 +1,12 @@
 /*
 leetcode 138. Copy List with Random Pointer
-A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.
+题目大意：对于还有另一个指针域Random的链表进行复制。
 
-Return a deep copy of the list.
-
-解题思路：分两次遍历链表，第一次先复制普通的含有next的指针域，第二次复制random指针域
+解题思路：
+(1)使用哈希表，分两次遍历链表，第一次先复制普通的含有next的指针域，
+并记录新旧节点的map，第二次复制random指针域
+(2)分三步，第一先复制节点，并插入到旧节点之后，然后复制random，最后
+将链表分解成两个链表。返回新生产的链表。
 */
 
 /**
@@ -31,6 +33,47 @@ struct RandomListNode
 
 class Solution {
 public:
+	RandomListNode *copyRandomList2(RandomListNode *head)
+	{
+			if (head == NULL)
+				return NULL;
+			RandomListNode* p = head;
+			RandomListNode* next = NULL;
+			while (p != NULL)
+			{
+				next = p->next;
+				RandomListNode* q = new RandomListNode(p->label);
+				p->next = q;
+				q->next = next;
+				p = next;
+			}
+
+			p = head;
+			while (p != NULL)
+			{
+				if (p->random != NULL)
+					p->next->random = p->random->next;
+				p = p->next->next;
+			}
+
+			p = head;
+			RandomListNode* dummy = new RandomListNode(-1);
+			RandomListNode* copy;
+			RandomListNode* q = dummy;
+			while (p != NULL)
+			{
+				next = p->next->next;
+				copy = p->next;
+				q->next = copy;
+				q = copy;
+				
+				p->next = next;
+				p = next;
+			}
+
+			return dummy->next;
+		}
+	};
 	RandomListNode *copyRandomList(RandomListNode *head)
 	{
 		if (!head)
